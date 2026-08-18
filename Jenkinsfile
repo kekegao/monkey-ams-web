@@ -90,7 +90,7 @@ pipeline {
                     docker run -d \
                         --name monkey-ams-web \
                         --network ai-network \
-                        -p 8081:8080 \
+                        -p 8080:8081 \
                         --restart unless-stopped \
                         monkey-ams-web:latest
 
