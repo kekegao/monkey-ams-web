@@ -14,12 +14,27 @@ pipeline {
             }
         }
 
-        stage('Maven构建') {
+        /* stage('Maven构建') {
             steps {
                 echo '========== Maven Build =========='
 
                 sh 'chmod +x mvnw'
                 sh './mvnw clean package -DskipTests'
+            }
+        } */
+
+        stage('Maven构建') {
+            steps {
+                echo '========== 构建monkey-ams-web =========='
+
+                sh '''
+                    docker run --rm \
+                        -v jenkins_jenkins_home:/var/jenkins_home \
+                        -v jenkins-maven-repo:/root/.m2 \
+                        -w /var/jenkins_home/workspace/monkey-ams-web \
+                        maven:3.9.11-eclipse-temurin-21 \
+                        mvn clean package -DskipTests
+                '''
             }
         }
 
